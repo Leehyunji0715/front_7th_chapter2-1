@@ -286,13 +286,15 @@
           <div class="flex items-center gap-2">
             <label class="text-sm text-gray-600">카테고리:</label>
             <button data-breadcrumb="reset" class="text-xs hover:text-blue-800 hover:underline">전체</button>
+            ${e.category1?`<span class="text-xs text-gray-500">&gt;</span><button data-breadcrumb="category1" data-category1="${e.category1}" class="text-xs hover:text-blue-800 hover:underline">${e.category1}</button>`:``}
+            ${e.category1&&e.category2?`<span class="text-xs text-gray-500">&gt;</span><span class="text-xs text-gray-600 cursor-default">${e.category2}</span>`:``}
           </div>
-          <!-- 1depth 카테고리 -->
-          <!-- 2depth 카테고리 -->
-          <div class="flex flex-wrap gap-2">
-            ${t?`<div class="flex flex-wrap gap-2">
-                    ${e.category1?Object.keys(t[e.category1]??{}).map(t=>E({category1:e.category1,category2:t})).join(``):Object.keys(t).map(T).join(``)}
+          <div class="space-y-2">
+            <div class="flex flex-wrap gap-2">
+              ${Object.keys(t).length?`<div class="flex flex-wrap gap-2">
+                    ${e.category1?Object.keys(t[e.category1]??{}).map(t=>E({category1:e.category1,category2:t,isSelected:e.category2===t})).join(``):Object.keys(t).map(T).join(``)}
               </div>`:`<div class="text-sm text-gray-500 italic">카테고리 로딩 중...</div>`}
+            </div>
           </div>
         </div>
         <!-- 기존 필터들 -->
@@ -333,17 +335,17 @@
       class="category1-filter-btn text-left px-3 py-2 text-sm rounded-md border transition-colors bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
     >
       ${e}
-    </button>`,E=({category1:e,category2:t})=>`
+    </button>`,E=({category1:e,category2:t,isSelected:n})=>{let r=n?`bg-blue-100 border-blue-300 text-blue-800`:`bg-white border-gray-300 text-gray-700 hover:bg-gray-50`;return`
     <button
       data-category1="${e}"
       data-category2="${t}"
-      class="category2-filter-btn text-left px-3 py-2 text-sm rounded-md border transition-colors bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+      class="category2-filter-btn text-left px-3 py-2 text-sm rounded-md border transition-colors ${r}"
     >
       ${t}
-    </button>`,D=({filters:e,pagination:t,products:n,loading:r=!1,categories:i})=>m({children:`
+    </button>`},D=({filters:e,pagination:t,products:n,loading:r=!1,categories:i})=>m({children:`
     ${w({filters:e,pagination:t,categories:i})}
     ${C({products:n,loading:r,total:t?.total??0})}
-    `}),O=e=>{let t=new URLSearchParams(window.location.search),n=new URLSearchParams;for(let[r,i]of t.entries())r!==e&&n.append(r,i);let r=`?`+n.toString();return n.toString()?r:``},k=(e,t)=>{let n=new URLSearchParams(window.location.search),r=new URLSearchParams;r.append(e,t);for(let[t,i]of n.entries())t!==e&&r.append(t,i);return`?`+r.toString()},A=()=>m({children:`
+    `}),O=e=>{let t=new URLSearchParams(window.location.search),n=new URLSearchParams;for(let[r,i]of t.entries())r!==e&&n.append(r,i);let r=`?`+n.toString();return n.toString()?r:``},k=(e,t)=>{let n=new URLSearchParams(window.location.search),r=new URLSearchParams;for(let[t,i]of n.entries())t!==e&&r.append(t,i);return r.append(e,t),`?`+r.toString()},A=()=>m({children:`
       <div class="text-center my-4 py-20 shadow-md p-6 bg-white rounded-lg">
       <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -374,4 +376,4 @@
 
       <a href="/front_7th_chapter2-1/" data-link class="inline-block px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">홈으로</a>
     </div>
-  `});function j(e){let t=e.replace(/[-/\\^$*+?.()|[\]{}]/g,`\\$&`);return t=t.replace(/:(\w+)/g,`([\\w]+)`),t=`^${t}$`,new RegExp(t)}const M=e=>{let t=`/front_7th_chapter2-1/`;return e.replace(t,`/`).replace(/\?.*/,``).replace(/\/$/,``)||`/`};var N=class{constructor(e){this.routes={},this._routesArray=[],this.$container=e,window.addEventListener(`popstate`,this.handlePopState.bind(this))}addRoute(e,t){let n=j(e);this.routes[n]=t,this._routesArray.push(n)}navigateTo(e){history.pushState(null,``,e),this.handleRoute(e)}handlePopState(){this.handleRoute(location.pathname)}handleRoute(e){let t=M(e),n=this._routesArray.find(e=>e.test(t)),r=this.routes[n];r?r():(this.$container.innerHTML=A(),console.log(`404 Not Found`))}};const P=()=>r(async()=>{let{worker:e}=await import(`./browser-CcyfQrG1.js`);return{worker:e}},[]).then(({worker:e})=>e.start({serviceWorker:{url:`${R}mockServiceWorker.js`},onUnhandledRequest:`bypass`})),F=new N(document.querySelector(`#root`)),I=async()=>{F.handleRoute(location.pathname)},L=async()=>{I()},R=`/front_7th_chapter2-1/`,z=document.querySelector(`#root`);let B;F.addRoute(`/`,async()=>{let e=new URLSearchParams(window.location.search),t=e.get(`search`)??``,n=e.get(`category1`)??``;z.innerHTML=D({loading:!0,categories:B,filters:{search:t,category1:n}});let r=await a({search:t,category1:n});B||=await s(),z.innerHTML=D({...r,filters:{search:t,category1:n},categories:B,loading:!1})}),F.addRoute(`/product/:productId`,async()=>{z.innerHTML=h({loading:!0});let e=M(location.pathname).split(`/`)[2],t=await o(e);if(z.innerHTML=h({loading:!1,product:t.error?void 0:t,relatedProducts:[]}),!t.error){let n=(await a({page:1,category2:t.category2})).products.filter(t=>t.productId!==e);z.innerHTML=h({loading:!1,product:t,relatedProducts:n})}}),z.addEventListener(`click`,e=>{let t=e.target.closest(`.product-card`)??e.target.closest(`.related-product-card`);if(t){let e=t.dataset.productId;F.navigateTo(`${R}product/${e}`)}else e.target.tagName===`A`&&(e.preventDefault(),F.navigateTo(e.target.pathname))}),z.addEventListener(`click`,e=>{if(e.target.closest(`.category1-filter-btn`)){let t=e.target.closest(`.category1-filter-btn`),n=t.dataset.category1,r=k(`category1`,n);F.navigateTo(`${R}${r}`)}else if(e.target.closest(`.category2-filter-btn`)){let t=e.target.closest(`.category2-filter-btn`);t.classList.add(`bg-blue-100`,`border-blue-300`,`text-blue-800`),t.classList.remove(`bg-white`,`border-gray-300`,`text-gray-700`,`hover:bg-gray-50`);let n=z.querySelectorAll(`.category2-filter-btn`);n.forEach(e=>{t.dataset.category2!==e.dataset.category2&&(e.classList.remove(`bg-blue-100`,`border-blue-300`,`text-blue-800`),e.classList.add(`bg-white`,`border-gray-300`,`text-gray-700`,`hover:bg-gray-50`))})}}),z.addEventListener(`keydown`,e=>{if(e.key===`Enter`){let t=e.target.closest(`#search-input`);if(t.value)F.navigateTo(`?search=${t.value}`);else{let e=O(`search`);F.navigateTo(`${R}${e}`)}}}),P().then(L);
+  `});function j(e){let t=e.replace(/[-/\\^$*+?.()|[\]{}]/g,`\\$&`);return t=t.replace(/:(\w+)/g,`([\\w]+)`),t=`^${t}$`,new RegExp(t)}const M=e=>{let t=`/front_7th_chapter2-1/`;return e.replace(t,`/`).replace(/\?.*/,``).replace(/\/$/,``)||`/`};var N=class{constructor(e){this.routes={},this._routesArray=[],this.$container=e,window.addEventListener(`popstate`,this.handlePopState.bind(this))}addRoute(e,t){let n=j(e);this.routes[n]=t,this._routesArray.push(n)}navigateTo(e){history.pushState(null,``,e),this.handleRoute(e)}handlePopState(){this.handleRoute(location.pathname)}handleRoute(e){let t=M(e),n=this._routesArray.find(e=>e.test(t)),r=this.routes[n];r?r():(this.$container.innerHTML=A(),console.log(`404 Not Found`))}};const P=()=>r(async()=>{let{worker:e}=await import(`./browser-CcyfQrG1.js`);return{worker:e}},[]).then(({worker:e})=>e.start({serviceWorker:{url:`${R}mockServiceWorker.js`},onUnhandledRequest:`bypass`})),F=new N(document.querySelector(`#root`)),I=async()=>{F.handleRoute(location.pathname)},L=async()=>{I()},R=`/front_7th_chapter2-1/`,z=document.querySelector(`#root`);let B;F.addRoute(`/`,async()=>{let e=new URLSearchParams(window.location.search),t=e.get(`search`)??``,n=e.get(`category1`)??``,r=e.get(`category2`)??``,i={search:t,category1:n,category2:r};z.innerHTML=D({loading:!0,categories:B,filters:i});let o=await a({search:t,category1:n,category2:r});B||=await s(),z.innerHTML=D({...o,filters:i,categories:B,loading:!1})}),F.addRoute(`/product/:productId`,async()=>{z.innerHTML=h({loading:!0});let e=M(location.pathname).split(`/`)[2],t=await o(e);if(z.innerHTML=h({loading:!1,product:t.error?void 0:t,relatedProducts:[]}),!t.error){let n=(await a({page:1,category2:t.category2})).products.filter(t=>t.productId!==e);z.innerHTML=h({loading:!1,product:t,relatedProducts:n})}}),z.addEventListener(`click`,e=>{let t=e.target.closest(`.product-card`)??e.target.closest(`.related-product-card`);if(t){let e=t.dataset.productId;F.navigateTo(`${R}product/${e}`)}else e.target.tagName===`A`&&(e.preventDefault(),F.navigateTo(e.target.pathname))}),z.addEventListener(`click`,e=>{if(e.target.closest(`.category1-filter-btn`)){let t=e.target.closest(`.category1-filter-btn`),n=t.dataset.category1,r=k(`category1`,n);F.navigateTo(`${R}${r}`)}else if(e.target.closest(`.category2-filter-btn`)){let t=e.target.closest(`.category2-filter-btn`),n=t.dataset.category2,r=k(`category2`,n);F.navigateTo(`${R}${r}`)}else if(e.target.dataset.breadcrumb===`category1`){let t=e.target.dataset.category1,n=z.querySelector(`#search-input`),r=`?search=${n.value}&category1=${t}`;F.navigateTo(`${R}${r}`)}else if(e.target.dataset.breadcrumb===`reset`){let e=z.querySelector(`#search-input`),t=`?search=${e.value}`;F.navigateTo(`${R}${t}`)}}),z.addEventListener(`keydown`,e=>{if(e.key===`Enter`){let t=e.target.closest(`#search-input`),n=new URLSearchParams(window.location.search),r=n.get(`category1`)??``,i=n.get(`category2`)??``,a=`?search=${t.value}${r?`&category1=${r}`:``}${i?`&category2=${i}`:``}`;if(t.value)F.navigateTo(a);else{let e=O(`search`);F.navigateTo(`${R}${e}`)}}}),P().then(L);
