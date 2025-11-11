@@ -8,7 +8,7 @@
       const basePath = import.meta.env.BASE_URL;
       const relativePath = pathName.replace(basePath, "/").replace(/\?.*/, "").replace(/\/$/, "") || "/";
       if (relativePath !== "/") {
-        window.location.replace("/front_7th_chapter2-1");
+        window.location.replace(basePath);
       }
     </script>
     <title>상품 쇼핑몰</title>
