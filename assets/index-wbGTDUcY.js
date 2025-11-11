@@ -17,7 +17,7 @@
   <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
       ${e}
     </span>
-  `,f=()=>{let e=location.pathname.startsWith(`/product`);return`
+  `,f=()=>{let e=location.pathname.startsWith(`/front_7th_chapter2-1/product`);return`
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-md mx-auto px-4 py-4">
           <div class="flex items-center justify-between">
@@ -31,7 +31,7 @@
               <h1 class="text-lg font-bold text-gray-900">상품 상세</h1>
             </div>`:`
             <h1 class="text-xl font-bold text-gray-900">
-              <a href="/" data-link="">쇼핑몰</a>
+              <a href="/front_7th_chapter2-1/" data-link="">쇼핑몰</a>
             </h1>`}
             <div class="flex items-center space-x-2">
               <!-- 장바구니 아이콘 -->
@@ -235,74 +235,81 @@
     </div>
 </div>`,C=[`생활/건강`,`디지털/가전`],w=e=>`<button data-category1=${e} class="category1-filter-btn text-left px-3 py-2 text-sm rounded-md border transition-colors bg-white border-gray-300 text-gray-700 hover:bg-gray-50">
     ${e}
-  </button>`,T=({loading:e=!1})=>`
+  </button>`,T=({loading:e=!1,search:t=``})=>`
         <!-- 검색 및 필터 -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-4">
-          <!-- 검색창 -->
-          <div class="mb-4">
-            <div class="relative">
-              <input type="text" id="search-input" placeholder="상품명을 검색해보세요..." value="" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg
-                          focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-              </div>
-            </div>
-          </div>
-          <!-- 필터 옵션 -->
-          <div class="space-y-3">
-            <!-- 카테고리 필터 -->
-            <div class="space-y-2">
-              <div class="flex items-center gap-2">
-                <label class="text-sm text-gray-600">카테고리:</label>
-                <button data-breadcrumb="reset" class="text-xs hover:text-blue-800 hover:underline">전체</button>
-              </div>
-              <!-- 1depth 카테고리 -->
-              <!-- 2depth 카테고리 -->
-              <div class="flex flex-wrap gap-2">
-                ${e?`<div class="text-sm text-gray-500 italic">카테고리 로딩 중...</div>`:`<div class="flex flex-wrap gap-2">
-                    ${C.map(w).join(``)}
-              </div>`}
-              </div>
-            </div>
-            <!-- 기존 필터들 -->
-            <div class="flex gap-2 items-center justify-between">
-              <!-- 페이지당 상품 수 -->
-              <div class="flex items-center gap-2">
-                <label class="text-sm text-gray-600">개수:</label>
-                <select id="limit-select"
-                        class="text-sm border border-gray-300 rounded px-2 py-1 focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
-                  <option value="10">
-                    10개
-                  </option>
-                  <option value="20" selected="">
-                    20개
-                  </option>
-                  <option value="50">
-                    50개
-                  </option>
-                  <option value="100">
-                    100개
-                  </option>
-                </select>
-              </div>
-              <!-- 정렬 -->
-                <div class="flex items-center gap-2">
-                    <label class="text-sm text-gray-600">정렬:</label>
-                    <select id="sort-select" class="text-sm border border-gray-300 rounded px-2 py-1
-                                focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
-                        <option value="price_asc" selected="">가격 낮은순</option>
-                        <option value="price_desc">가격 높은순</option>
-                        <option value="name_asc">이름순</option>
-                        <option value="name_desc">이름 역순</option>
-                    </select>
-                </div>
-            </div>
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-4">
+      <!-- 검색창 -->
+      <div class="mb-4">
+        <div class="relative">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="상품명을 검색해보세요..."
+            value="${t}"
+            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
           </div>
         </div>
-    `,E=({filters:e,pagination:t,products:n,loading:r=!1})=>p({children:`
-    ${T({filters:e,pagination:t,loading:r})}
+      </div>
+      <!-- 필터 옵션 -->
+      <div class="space-y-3">
+        <!-- 카테고리 필터 -->
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-600">카테고리:</label>
+            <button data-breadcrumb="reset" class="text-xs hover:text-blue-800 hover:underline">전체</button>
+          </div>
+          <!-- 1depth 카테고리 -->
+          <!-- 2depth 카테고리 -->
+          <div class="flex flex-wrap gap-2">
+            ${e?`<div class="text-sm text-gray-500 italic">카테고리 로딩 중...</div>`:`<div class="flex flex-wrap gap-2">
+                    ${C.map(w).join(``)}
+              </div>`}
+          </div>
+        </div>
+        <!-- 기존 필터들 -->
+        <div class="flex gap-2 items-center justify-between">
+          <!-- 페이지당 상품 수 -->
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-600">개수:</label>
+            <select
+              id="limit-select"
+              class="text-sm border border-gray-300 rounded px-2 py-1 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="10">10개</option>
+              <option value="20" selected="">20개</option>
+              <option value="50">50개</option>
+              <option value="100">100개</option>
+            </select>
+          </div>
+          <!-- 정렬 -->
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-600">정렬:</label>
+            <select
+              id="sort-select"
+              class="text-sm border border-gray-300 rounded px-2 py-1
+                                focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="price_asc" selected="">가격 낮은순</option>
+              <option value="price_desc">가격 높은순</option>
+              <option value="name_asc">이름순</option>
+              <option value="name_desc">이름 역순</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    `,E=({filters:e,pagination:t,products:n,loading:r=!1,search:i=``})=>p({children:`
+    ${T({filters:e,pagination:t,loading:r,search:i})}
     ${S({products:n,loading:r,total:t?.total??0})}
     `}),D=()=>p({children:`
       <div class="text-center my-4 py-20 shadow-md p-6 bg-white rounded-lg">
@@ -335,4 +342,4 @@
 
       <a href="/" data-link class="inline-block px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">홈으로</a>
     </div>
-  `});function O(e){let t=e.replace(/[-/\\^$*+?.()|[\]{}]/g,`\\$&`);return t=t.replace(/:(\w+)/g,`([\\w]+)`),t=`^${t}$`,new RegExp(t)}var k=class{constructor(e){this.routes={},this._routesArray=[],this.$container=e,window.addEventListener(`popstate`,this.handlePopState.bind(this))}addRoute(e,t){let n=O(e);this.routes[n]=t,this._routesArray.push(n)}navigateTo(e){history.pushState(null,``,e),this.handleRoute(e)}handlePopState(){this.handleRoute(location.pathname)}handleRoute(e){let t=`/front_7th_chapter2-1/`,n=e,r=n.replace(t,`/`).replace(/\/$/,``)||`/`,i=this._routesArray.find(e=>e.test(r)),a=this.routes[i];a?a():(this.$container.innerHTML=D(),console.log(`404 Not Found`))}};const A=()=>r(async()=>{let{worker:e}=await import(`./browser-CcyfQrG1.js`);return{worker:e}},[]).then(({worker:e})=>e.start({serviceWorker:{url:`/front_7th_chapter2-1/mockServiceWorker.js`},onUnhandledRequest:`bypass`})),j=new k(document.querySelector(`#root`)),M=async()=>{j.handleRoute(location.pathname)},N=async()=>{M()};j.addRoute(`/`,async()=>{let e=document.querySelector(`#root`);e.innerHTML=E({loading:!0});let t=await a();e.innerHTML=E({...t,loading:!1})}),j.addRoute(`/product/:productId`,async()=>{let e=document.querySelector(`#root`);e.innerHTML=m({loading:!0});let t=location.pathname.split(`/`)[2],n=await o(t);if(e.innerHTML=m({loading:!1,product:n.error?void 0:n,relatedProducts:[]}),!n.error){let r=(await a({page:1,category2:n.category2})).products.filter(e=>e.productId!==t);e.innerHTML=m({loading:!1,product:n,relatedProducts:r})}}),document.body.addEventListener(`click`,e=>{let t=e.target.closest(`.product-card`)??e.target.closest(`.related-product-card`);if(t){let e=t.dataset.productId;history.pushState(null,null,`/product/${e}`),M()}if(e.target.tagName===`A`){if(e.preventDefault(),location.pathname===e.target.pathname)return;j.navigateTo(e.target.pathname)}}),A().then(N);
+  `});function O(e){let t=e.replace(/[-/\\^$*+?.()|[\]{}]/g,`\\$&`);return t=t.replace(/:(\w+)/g,`([\\w]+)`),t=`^${t}$`,new RegExp(t)}const k=e=>{let t=`/front_7th_chapter2-1/`;return e.replace(t,`/`).replace(/^\?.+/,``).replace(/\/$/,``)||`/`},A=e=>{let t=new URLSearchParams(window.location.search),n=new URLSearchParams;for(let[r,i]of t.entries())r!==e&&n.append(r,i);let r=`?`+n.toString();return n.toString()?r:``};var j=class{constructor(e){this.routes={},this._routesArray=[],this.$container=e,window.addEventListener(`popstate`,this.handlePopState.bind(this))}addRoute(e,t){let n=O(e);this.routes[n]=t,this._routesArray.push(n)}navigateTo(e){history.pushState(null,``,e),this.handleRoute(e)}handlePopState(){this.handleRoute(location.pathname)}handleRoute(e){let t=k(e),n=this._routesArray.find(e=>e.test(t)),r=this.routes[n];r?r():(this.$container.innerHTML=D(),console.log(`404 Not Found`))}};const M=()=>r(async()=>{let{worker:e}=await import(`./browser-CcyfQrG1.js`);return{worker:e}},[]).then(({worker:e})=>e.start({serviceWorker:{url:`${I}mockServiceWorker.js`},onUnhandledRequest:`bypass`})),N=new j(document.querySelector(`#root`)),P=async()=>{N.handleRoute(location.pathname)},F=async()=>{P()},I=`/front_7th_chapter2-1/`,L=document.querySelector(`#root`);N.addRoute(`/`,async()=>{let e=new URLSearchParams(window.location.search),t=e.get(`search`)??``;L.innerHTML=E({search:t,loading:!0});let n=await a({search:t});L.innerHTML=E({...n,search:t,loading:!1})}),N.addRoute(`/product/:productId`,async()=>{L.innerHTML=m({loading:!0});let e=k(location.pathname).split(`/`)[2],t=await o(e);if(L.innerHTML=m({loading:!1,product:t.error?void 0:t,relatedProducts:[]}),!t.error){let n=(await a({page:1,category2:t.category2})).products.filter(t=>t.productId!==e);L.innerHTML=m({loading:!1,product:t,relatedProducts:n})}}),L.addEventListener(`click`,e=>{let t=e.target.closest(`.product-card`)??e.target.closest(`.related-product-card`);if(t){let e=t.dataset.productId;N.navigateTo(`${I}product/${e}`)}if(e.target.tagName===`A`){if(e.preventDefault(),location.pathname===e.target.pathname)return;N.navigateTo(e.target.pathname)}}),L.addEventListener(`keydown`,e=>{if(e.key===`Enter`){let t=e.target.closest(`#search-input`);if(t.value)N.navigateTo(`?search=${t.value}`);else{let e=A(`search`);N.navigateTo(`${I}${e}`)}}}),M().then(F);
